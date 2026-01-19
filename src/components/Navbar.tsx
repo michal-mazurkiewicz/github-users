@@ -7,6 +7,7 @@ import { Link, useMatch, useNavigate, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { searchUsers, selectRateLimitResetAt } from '../store/slices/users';
+import { useGoBack } from '../hooks/useGoBack';
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export default function Navbar() {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
   const isVariant = isFavourites || isProfile;
   const title = isFavourites ? 'Favourites' : `@${handle}`;
+  const goBack = useGoBack();
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -77,7 +79,7 @@ export default function Navbar() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <IconButton aria-label="Back" size="small" onClick={() => navigate(-1)}>
+              <IconButton aria-label="Back" size="small" onClick={() => goBack()}>
                 <ArrowBackIcon />
               </IconButton>
               <Typography variant="h6" sx={{ letterSpacing: '-0.02em' }}>
