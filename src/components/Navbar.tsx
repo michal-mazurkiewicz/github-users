@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link, useMatch, useNavigate, useParams } from 'react-router';
+import { Link, useMatch, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { searchUsers, selectRateLimitResetAt } from '../store/slices/users';
@@ -11,7 +11,6 @@ import { useGoBack } from '../hooks/useGoBack';
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { handle } = useParams();
   const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
   const isFavourites = Boolean(useMatch('/favourites'));

@@ -108,7 +108,7 @@ export default function UserList({ users }: UserListProps) {
             }}
           >
             <Typography color="text.secondary" sx={{ fontSize: 14 }}>
-              You have reached the end of results.
+              That’s everything we found 😊
             </Typography>
           </Box>
         )}

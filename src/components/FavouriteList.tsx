@@ -1,22 +1,20 @@
 import { List, type ListImperativeAPI } from 'react-window';
 import { Box, Paper, Typography } from '@mui/material';
-
 import type { User } from '../types/users';
 import { useRef } from 'react';
-import { RateLimitFooter } from './RateLimitFooter';
 import { UserRow } from './UserRow';
 
 type UserListProps = {
   users: User[];
 };
 
-export default function FavoutiresList({ users }: UserListProps) {
+export default function FavouriteList({ users }: UserListProps) {
   const listRef = useRef<ListImperativeAPI>(null);
 
   if (users.length === 0) {
     return (
       <Box sx={{ px: 3, py: 6, textAlign: 'center' }}>
-        <Typography color="text.secondary">No search results.</Typography>
+        <Typography color="text.secondary">You don't have any favourite users yet 😊</Typography>
       </Box>
     );
   }
@@ -39,7 +37,6 @@ export default function FavoutiresList({ users }: UserListProps) {
         <Box sx={{ flex: 1, minHeight: 0 }}>
           <List rowCount={users.length} rowHeight={88} rowComponent={UserRow} rowProps={{ users }} overscanCount={5} listRef={listRef} />
         </Box>
-        <RateLimitFooter />
       </Paper>
     </>
   );

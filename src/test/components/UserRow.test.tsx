@@ -29,6 +29,7 @@ describe('UserRow', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
+          {/* @ts-ignore */}
           <UserRow index={0} style={{}} users={[user]} ariaAttributes={{}} />
         </MemoryRouter>
       </Provider>,
@@ -44,6 +45,7 @@ describe('UserRow', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
+          {/* @ts-ignore */}
           <UserRow index={0} style={{}} users={[user]} ariaAttributes={{}} />
         </MemoryRouter>
       </Provider>,
