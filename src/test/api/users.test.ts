@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { usersApi } from './users';
-import type { SearchUsersResponse } from '../types/users';
+import { usersApi } from '../../api/users';
+import type { SearchUsersResponse } from '../../types/users';
 import { toast } from 'react-toastify';
 
 vi.mock('react-toastify', () => ({
