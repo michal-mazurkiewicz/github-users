@@ -22,7 +22,7 @@ export const UserRow = ({ index, style, users, ariaAttributes }: RowComponentPro
         sx={{
           display: 'flex',
           alignItems: 'center',
-          px: 3,
+          px: 2,
           height: 88,
         }}
       >

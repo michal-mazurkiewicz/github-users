@@ -30,7 +30,7 @@ export default function UserCard({ user }: Props) {
     >
       <IconButton
         aria-label="Star user"
-        sx={{ position: 'absolute', top: { xs: 5, md: 20 }, right: { xs: 5, md: 20 } }}
+        sx={{ position: 'absolute', top: { xs: 5, md: 10 }, right: { xs: 5, md: 10 } }}
         onClick={() => dispatch(toggleFavourite(user))}
       >
         {isFavourite ? <StarIcon sx={{ fontSize: 30, color: '#f4b400' }} /> : <StarBorderIcon sx={{ fontSize: 30, color: 'rgba(0, 0, 0, 0.55)' }} />}

@@ -73,7 +73,7 @@ export default function Navbar() {
               alignItems: 'center',
               gap: 1,
               width: '100%',
-              maxWidth: 520,
+              maxWidth: 900,
               justifyContent: 'space-between',
             }}
           >
@@ -99,7 +99,7 @@ export default function Navbar() {
               gap: 1,
               flex: 1,
               justifyContent: 'center',
-              maxWidth: 520,
+              maxWidth: 900,
             }}
           >
             <SearchIcon sx={{ color: 'rgba(0, 0, 0, 0.6)' }} />
