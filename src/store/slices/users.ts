@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { SearchUsersResponse, User } from '../../types/users';
 import { usersApi } from '../../api/users';
@@ -174,12 +174,18 @@ export const selectUser = (state: RootState) => state.users.selectedUser;
 export const selectFavourites = (state: RootState) => state.users.favourites;
 export const selectIsFavourite = (handle?: string) => (state: RootState) =>
   handle ? state.users.favourites.some(user => user.login === handle) : false;
-export const selectPaginationInfo = (state: RootState) => ({
-  total_count: state.users.total_count,
-  page: state.users.page,
-  has_more: state.users.has_more,
-  query: state.users.query,
-});
+export const selectPaginationInfo = createSelector(
+  (state: RootState) => state.users.total_count,
+  (state: RootState) => state.users.page,
+  (state: RootState) => state.users.has_more,
+  (state: RootState) => state.users.query,
+  (total_count, page, has_more, query) => ({
+    total_count,
+    page,
+    has_more,
+    query,
+  }),
+);
 
 export const selectRateLimitResetAt = (state: RootState) => state.users.rateLimitResetAt;
 

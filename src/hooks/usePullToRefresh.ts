@@ -4,6 +4,7 @@ import type { ListImperativeAPI } from 'react-window';
 type UsePullToRefreshOptions = {
   listRef: RefObject<ListImperativeAPI>;
   onRefresh: () => void;
+  isLoading: boolean;
   threshold?: number;
   maxPull?: number;
 };
@@ -25,6 +26,7 @@ const DEFAULT_MAX_PULL = 120;
 export function usePullToRefresh({
   listRef,
   onRefresh,
+  isLoading,
   threshold = DEFAULT_THRESHOLD,
   maxPull = DEFAULT_MAX_PULL,
 }: UsePullToRefreshOptions): UsePullToRefreshResult {
@@ -78,7 +80,7 @@ export function usePullToRefresh({
     const shouldRefresh = pullDistanceRef.current >= threshold;
     resetPull();
 
-    if (shouldRefresh) {
+    if (shouldRefresh && !isLoading) {
       onRefresh();
     }
   };

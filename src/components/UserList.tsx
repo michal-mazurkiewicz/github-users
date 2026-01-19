@@ -20,7 +20,7 @@ export default function UserList({ users }: UserListProps) {
   const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
   const listRef = useRef<ListImperativeAPI>(null);
 
-  const { pullDistance, isPulling, touchHandlers } = usePullToRefresh({listRef, onRefresh: () => dispatch(searchUsers({ query, page: 1 }))});
+  const { pullDistance, isPulling, touchHandlers } = usePullToRefresh({isLoading, listRef, onRefresh: () => dispatch(searchUsers({ query, page: 1 }))});
 
   const handleLoadMore= ({ stopIndex }: { startIndex: number; stopIndex: number }) => {
     if (!has_more || isLoading) {

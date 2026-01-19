@@ -3,7 +3,7 @@ import UserList from '../components/UserList';
 import { useAppSelector } from '../store/hooks';
 import { selectUsers } from '../store/slices/users';
 
-export const Dashboard = () => {
+export const SearchPage = () => {
   const users = useAppSelector(selectUsers);
   const isLoading = useAppSelector(state => state.users.searchStatus === 'loading');
 

@@ -1,31 +1,25 @@
 import { Box, IconButton, InputBase, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useMatch, useNavigate, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { searchUsers, selectRateLimitResetAt } from '../store/slices/users';
 
-type NavbarVariant = 'search' | 'favourites' | 'profile';
-
-type NavbarProps = {
-  variant?: NavbarVariant;
-  title?: string;
-};
-
-export default function Navbar({ variant = 'search', title }: NavbarProps) {
+export default function Navbar() {
   const dispatch = useAppDispatch();
-  const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
   const navigate = useNavigate();
   const { handle } = useParams();
+  const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
+  const isFavourites = Boolean(useMatch('/favourites'));
+  const isProfile = Boolean(useMatch('/user/:handle'));
+
   const [query, setQuery] = useState(useAppSelector(state => state.users.query) || '');
   const [debouncedQuery, setDebouncedQuery] = useState(query);
-
-  const isFavourites = variant === 'favourites';
-  const isProfile = variant === 'profile';
-  const isCentered = isFavourites || isProfile;
-  const centeredTitle = title ?? (isFavourites ? 'Favourites' : `@${handle}`);
+  const isVariant = isFavourites || isProfile;
+  const title = isFavourites ? 'Favourites' : `@${handle}`;
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -70,7 +64,7 @@ export default function Navbar({ variant = 'search', title }: NavbarProps) {
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
       }}
     >
-      {isCentered ? (
+      {isVariant ? (
         <>
           <Box
             sx={{
@@ -87,11 +81,11 @@ export default function Navbar({ variant = 'search', title }: NavbarProps) {
                 <ArrowBackIcon />
               </IconButton>
               <Typography variant="h6" sx={{ letterSpacing: '-0.02em' }}>
-                {centeredTitle}
+                {title}
               </Typography>
             </Box>
             <IconButton aria-label="Favourites" component={Link} to="/favourites" size="small">
-              <StarBorderIcon />
+              {isFavourites ? <StarIcon sx={{ color: '#f4b400' }} /> : <StarBorderIcon />}
             </IconButton>
           </Box>
         </>
