@@ -53,10 +53,19 @@ const writeFavourites = (users: User[]) => {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
 };
 
-export const searchUsers = createAsyncThunk<SearchUsersResponse, { query: string; page: number }, { rejectValue: UsersError }>(
+export const searchUsers = createAsyncThunk<SearchUsersResponse, { query: string; page: number }, { rejectValue: UsersError; state: RootState }>(
   'users/searchUsers',
-  async ({ query, page }, { rejectWithValue }) => {
+  async ({ query, page }, { rejectWithValue, getState }) => {
     try {
+      if (query.length < 3) {
+        return { items: [], total_count: 0, incomplete_results: false, page: 1 };
+      }
+
+      const rateLimitResetAt = getState().users.rateLimitResetAt;
+      if (rateLimitResetAt && Math.floor(Date.now() / 1000) < rateLimitResetAt) {
+        return rejectWithValue({ message: 'Rate limit exceeded', rateLimitResetAt });
+      }
+
       const result = await usersApi.searchUsers(query, page);
       return { ...result, page: page + 1 };
     } catch (error) {

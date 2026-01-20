@@ -6,13 +6,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, useMatch, useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { searchUsers, selectRateLimitResetAt } from '../store/slices/users';
+import { searchUsers } from '../store/slices/users';
 import { useGoBack } from '../hooks/useGoBack';
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
   const { handle } = useParams();
-  const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
   const isFavourites = Boolean(useMatch('/favourites'));
   const isProfile = Boolean(useMatch('/user/:handle'));
 
@@ -32,13 +31,6 @@ export default function Navbar() {
   }, [query]);
 
   useEffect(() => {
-    if (debouncedQuery.length < 3) {
-      return;
-    }
-    if (rateLimitResetAt && Math.floor(Date.now() / 1000) < rateLimitResetAt) {
-      return;
-    }
-
     const searchUsersByQuery = async () => {
       try {
         await dispatch(searchUsers({ query: debouncedQuery, page: 1 }));

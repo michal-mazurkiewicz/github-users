@@ -20,9 +20,13 @@ export default function UserList({ users }: UserListProps) {
   const rateLimitResetAt = useAppSelector(selectRateLimitResetAt);
   const listRef = useRef<ListImperativeAPI>(null);
 
-  const { pullDistance, isPulling, touchHandlers } = usePullToRefresh({isLoading, listRef, onRefresh: () => dispatch(searchUsers({ query, page: 1 }))});
+  const { pullDistance, isPulling, touchHandlers } = usePullToRefresh({
+    isLoading,
+    listRef,
+    onRefresh: () => dispatch(searchUsers({ query, page: 1 })),
+  });
 
-  const handleLoadMore= ({ stopIndex }: { startIndex: number; stopIndex: number }) => {
+  const handleLoadMore = ({ stopIndex }: { startIndex: number; stopIndex: number }) => {
     if (!has_more || isLoading) {
       return;
     }
@@ -59,27 +63,27 @@ export default function UserList({ users }: UserListProps) {
           position: 'relative',
         }}
       >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 10,
-              left: 0,
-              right: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 24,
-              opacity: Math.min(1, pullDistance / 60),
-              pointerEvents: 'none',
-              color: 'rgba(0, 0, 0, 0.6)',
-              fontSize: 12,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              zIndex: 1,
-            }}
-          >
-            {pullDistance >= 60 ? 'Release to refresh' : 'Pull to refresh'}
-          </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 10,
+            left: 0,
+            right: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 24,
+            opacity: Math.min(1, pullDistance / 60),
+            pointerEvents: 'none',
+            color: 'rgba(0, 0, 0, 0.6)',
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            zIndex: 1,
+          }}
+        >
+          {pullDistance >= 60 ? 'Release to refresh' : 'Pull to refresh'}
+        </Box>
         <Box sx={{ flex: 1, minHeight: 0 }}>
           <List
             className="no-scrollbars"
@@ -92,7 +96,7 @@ export default function UserList({ users }: UserListProps) {
             listRef={listRef}
             {...touchHandlers}
             style={{
-              transform:  `translateY(${pullDistance}px)`,
+              transform: `translateY(${pullDistance}px)`,
               transition: isPulling ? 'none' : 'transform 180ms ease-out',
               overflowY: 'auto',
             }}

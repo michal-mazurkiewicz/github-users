@@ -55,22 +55,21 @@ export function usePullToRefresh({
     [listRef],
   );
 
-  const handleTouchMove = 
-    (event: TouchEvent<HTMLDivElement>) => {
-      if (touchStartYRef.current === null) {
-        return;
-      }
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartYRef.current === null) {
+      return;
+    }
 
-      const currentY = event.touches[0]?.clientY ?? 0;
-      const distance = Math.max(0, currentY - touchStartYRef.current);
-      if (distance <= 0) {
-        return;
-      }
-      const nextDistance = Math.min(maxPull, distance);
-      pullDistanceRef.current = nextDistance;
-      setPullDistance(nextDistance);
-      setIsPulling(true);
-    };
+    const currentY = event.touches[0]?.clientY ?? 0;
+    const distance = Math.max(0, currentY - touchStartYRef.current);
+    if (distance <= 0) {
+      return;
+    }
+    const nextDistance = Math.min(maxPull, distance);
+    pullDistanceRef.current = nextDistance;
+    setPullDistance(nextDistance);
+    setIsPulling(true);
+  };
 
   const handleTouchEnd = () => {
     if (touchStartYRef.current === null) {

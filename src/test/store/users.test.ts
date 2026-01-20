@@ -121,10 +121,7 @@ describe('users slice', () => {
     expect(fulfilled.userStatus).toBe('succeeded');
     expect(fulfilled.selectedUser?.login).toBe('octo');
 
-    const rejected = usersReducer(
-      baseState,
-      fetchUserByHandle.rejected(new Error('nope'), 'req', 'octo', { message: 'nope', rateLimitResetAt: 9 }),
-    );
+    const rejected = usersReducer(baseState, fetchUserByHandle.rejected(new Error('nope'), 'req', 'octo', { message: 'nope', rateLimitResetAt: 9 }));
     expect(rejected.userStatus).toBe('failed');
     expect(rejected.error?.message).toBe('nope');
     expect(rejected.rateLimitResetAt).toBe(9);

@@ -2,7 +2,6 @@ import { toast } from 'react-toastify';
 import type { SearchUsersResponse, User } from '../types/users';
 
 export class UsersApi {
-
   async searchUsers(query: string, page: number = 1, size: number = 30): Promise<SearchUsersResponse> {
     const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(query)}&page=${page}&per_page=${size}`, {
       headers: {

@@ -43,7 +43,7 @@ export const UserRow = ({ index, style, users, ariaAttributes }: RowComponentPro
           {isFavourite ? <StarIcon sx={{ color: '#f4b400' }} /> : <StarBorderIcon sx={{ color: 'rgba(0, 0, 0, 0.5)' }} />}
         </IconButton>
       </Box>
-       <Divider />
+      <Divider />
     </Box>
   );
 };
